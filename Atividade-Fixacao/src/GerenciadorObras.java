@@ -3,6 +3,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class GerenciadorObras {
@@ -19,27 +22,48 @@ public class GerenciadorObras {
 
     }
 
-    public static void atualizar() throws IOException{
+    public static void atualizarSistema() throws IOException{
+        //metodo para sincronizar o sistema com os dados cadastrados no banco
         String linha;
-            try (FileReader fr = new FileReader(ARQUIVO);
-                    BufferedReader br = new BufferedReader(fr)) {
+        try (FileReader fr = new FileReader(ARQUIVO);
+                BufferedReader br = new BufferedReader(fr)) {
 
-                while ((linha = br.readLine()) != null) {
+            while ((linha = br.readLine()) != null) {
 
-                    Obra obra = Obra.fromString(linha);
-                    ListaObras.adicionarObra(obra);;
-                }
+                Obra obra = Obra.fromString(linha);
+                ListaObras.adicionarObra(obra);
             }
+        }
 
     }
 
-    public static void apagarObra() throws IOException{
+    public static void atualizarDados() throws IOException{
+        //metodo para sincronizar o banco com os dados do sistema
+  
+        try (FileWriter fw = new FileWriter(ARQUIVO, false);
+            BufferedWriter bw = new BufferedWriter(fw)) {
+            for (Obra tempObra : ListaObras.getListaObras()) {
+                bw.write(tempObra.toString() + "\n");
+        }
+                    
+   }
+
+    }
+
+
+    public static void apagarObra(String nome) throws IOException{
         String linha;
-            try (FileReader fr = new FileReader(ARQUIVO);
-                    BufferedReader br = new BufferedReader(fr)) {
+        
+            try (
+                FileReader fr = new FileReader(ARQUIVO);
+                BufferedReader br = new BufferedReader(fr)) {
 
                 while ((linha = br.readLine()) != null) {
                     String[] dadosObras = linha.split(", ");
+
+                    if (dadosObras[0].equals(nome)) {
+                        
+                    }
                     
                 }
             }

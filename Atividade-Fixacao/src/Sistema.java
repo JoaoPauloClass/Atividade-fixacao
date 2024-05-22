@@ -9,7 +9,7 @@ public class Sistema {
         int op;
         do {
             try {
-                GerenciadorObras.atualizar();
+                GerenciadorObras.atualizarSistema();
             } catch (Exception e) {
                 System.out.println("ERRO! Não foi possivel salvar a obra no bando de dados: " + e.getMessage());
             }
@@ -37,9 +37,9 @@ public class Sistema {
                 // case 4:
                 //     excluirCarta();
                 //     break;
-                // case 5:
-                //     listarCartas();
-                //     break;
+                case 5:
+                    listarObras();
+                    break;
                 // case 6:
                 //     ListaCartas.excluirTodasCartas();
                 //     System.out.println("Todas as cartas foram excluídas!");
@@ -76,6 +76,7 @@ public class Sistema {
         String tipo;
         int setor;
 
+        System.out.println("Digite os campos **SEM ACENTOS E CARACTERES ESPECIAIS**");
         titulo = Console.lerString("Título: ");
         artista = Console.lerString("Artista: ");
         ano = Console.lerInt("Ano de Criação: ");
@@ -91,7 +92,7 @@ public class Sistema {
                 break;
 
             case 3:
-                tipo = "Exposição";
+                tipo = "Exposicao";
                 break;
 
             default:
@@ -169,7 +170,6 @@ public class Sistema {
 
                     case 4:
                         editarObraTipo(nome);
-                        ;
                         break;
 
                     case 5:
@@ -180,13 +180,19 @@ public class Sistema {
                         System.out.println("Valor inválido, digite novamente");
                         break;
                 }
+                try {
+                    GerenciadorObras.atualizarDados();
+                    return;
+                } catch (Exception e) {
+                    System.out.println("Não foi possivel sincronizar os dados: " + e.getMessage());
+                }
             } while (op != 0);
         }
 
     }
     
     private static void editarObraNome(String nome){
-        String nomeNovo = Console.lerString("Digite o novo nome: ");
+        String nomeNovo = Console.lerString("Digite o novo nome (SEM ACENTOS E CARACTERES ESPECIAIS): ");
         ListaObras.editarObraNome(nome, nomeNovo);
         System.out.println("Obra editada.");
     }
@@ -233,7 +239,13 @@ public class Sistema {
         System.out.println("Obra editada.");
     }
 
+    private static void listarObras(){
 
+        for (Obra tempObra : ListaObras.getListaObras()) {
+            System.out.println(tempObra.mostrarDados());
+        }
+
+    }
 
 
 }

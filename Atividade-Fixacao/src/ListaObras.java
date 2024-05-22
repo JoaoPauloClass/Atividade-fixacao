@@ -66,7 +66,7 @@ public class ListaObras {
                 break;
 
             case 3:
-                obra.setTipo("Esxposição");
+                obra.setTipo("Esxposicao");
                 break;
         
             default:
