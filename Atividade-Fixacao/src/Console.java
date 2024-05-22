@@ -5,8 +5,10 @@ public class Console {
     
     private static Scanner scanner = new Scanner(System.in);
 
-    public static int lerInt(){
+    public static int lerInt(String msg){
         int num = 0;
+
+        System.out.print(msg);
 
         while(true){
             try {
@@ -25,8 +27,10 @@ public class Console {
         return num;
     }
 
-    public static float lerFloat() {
+    public static float lerFloat(String msg) {
         float num = 0;
+
+        System.out.print(msg);
 
         while(true){
             try {
@@ -44,7 +48,8 @@ public class Console {
         return num;
     }
 
-    public static String lerString() {
+    public static String lerString(String msg) {
+        System.out.print(msg);
         return scanner.nextLine();
     }
 
