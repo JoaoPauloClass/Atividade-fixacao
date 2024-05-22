@@ -49,11 +49,13 @@ public class Obra {
 
     public String mostrarDados(){
 
-        return "\nTítulo: " + titulo +
+        String txt = "\nTítulo: " + titulo +
                 "\nArtista: " + artista +
                 "\nAno de criação: " + ano +
                 "\nTipo: " + tipo +
                 "\nSetor: " + setor;
+
+        return txt;
     }
 
     @Override

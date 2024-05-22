@@ -8,11 +8,17 @@ public class Sistema {
     private static void menu() {
         int op;
         do {
+            try {
+                GerenciadorObras.atualizar();
+            } catch (Exception e) {
+                System.out.println("ERRO! Não foi possivel salvar a obra no bando de dados: " + e.getMessage());
+            }
             System.out.println("\n\nSISTEMA DO MUSEU");
             System.out.println("Selecione uma opção:");
             System.out.println("1) Cadastrar Obra");
             System.out.println("2) Buscar Obra");
-            System.out.println("3) Excluir Obra");
+            System.out.println("3) Editar Obra");
+            System.out.println("4) Excluir Obra");
             System.out.println("5) Listar Obras");
             System.out.println("6) Atualizar dados");
             System.out.println("0) Sair");
@@ -25,9 +31,9 @@ public class Sistema {
                 case 2:
                     buscarObra();
                     break;
-                // case 3:
-                //     editarCarta();
-                //     break;
+                case 3:
+                    editarObra();
+                    break;
                 // case 4:
                 //     excluirCarta();
                 //     break;
@@ -92,9 +98,13 @@ public class Sistema {
                 tipo = "N/A";
                 break;
         }
-
-        ListaObras.cadastrarObra(new Obra(titulo, artista, ano, tipo, setor));
-
+        Obra tempObra = new Obra(titulo, artista, ano, tipo, setor);
+        ListaObras.adicionarObra(tempObra);
+        try {
+            GerenciadorObras.salvarObra(tempObra);
+        } catch (Exception e) {
+            System.out.println("ERRO! Não foi possivel salvar a obra no bando de dados: " + e.getMessage());
+        }
     }
 
     private static void buscarObra(){
@@ -106,7 +116,124 @@ public class Sistema {
         if (tempObra == null) {
             System.out.println("Obra não encontrada ou lista vazia...");
         }else{
-            tempObra.mostrarDados();
+            System.out.println(tempObra.mostrarDados()); 
         }
     }
+
+    private static void editarObra() {
+        String nome;
+        int op;
+        do {
+            System.out.println("\n\nEDITAR OBRA");
+            nome = Console.lerString("Digite o nome da obra que deseja editar (digite SAIR para sair): ");
+
+            if (ListaObras.buscarObra(nome) == null) {
+                
+                if (nome.equals("SAIR")) {
+                    break;
+                }else{
+                   System.out.println("Obra não encontrada."); 
+                }
+            }
+
+        } while (ListaObras.buscarObra(nome) == null);
+
+        if (!nome.equals("SAIR")) {
+            do {
+
+                System.out.println("\nEDITAR OBRA -> " + nome);
+                System.out.println("1) Editar Nome");
+                System.out.println("2) Editar Artista");
+                System.out.println("3) Editar Ano");
+                System.out.println("4) Editar Tipo");
+                System.out.println("5) Editar Setor");
+                System.out.println("0) Sair");
+                op = Console.lerInt(">> ");
+
+                switch (op) {
+                    case 0:
+                        System.out.println("Saindo...");
+                        break;
+
+                    case 1:
+                        editarObraNome(nome);
+                        break;
+
+                    case 2:
+                        editarObraArtista(nome);
+                        break;
+
+                    case 3:
+                        editarObraAno(nome);
+                        break;
+
+                    case 4:
+                        editarObraTipo(nome);
+                        ;
+                        break;
+
+                    case 5:
+                        editarObraSetor(nome);
+                        break;
+
+                    default:
+                        System.out.println("Valor inválido, digite novamente");
+                        break;
+                }
+            } while (op != 0);
+        }
+
+    }
+    
+    private static void editarObraNome(String nome){
+        String nomeNovo = Console.lerString("Digite o novo nome: ");
+        ListaObras.editarObraNome(nome, nomeNovo);
+        System.out.println("Obra editada.");
+    }
+
+    private static void editarObraArtista(String nome){
+        String artistaNovo = Console.lerString("Digite o novo artista: ");
+        ListaObras.editarObraArtista(nome, artistaNovo);
+        System.out.println("Obra editada.");
+    }
+
+    private static void editarObraAno(String nome){
+        int anoNovo = Console.lerInt("Digite o novo ano: ");
+        ListaObras.editarObraAno(nome, anoNovo);
+        System.out.println("Obra editada.");
+    }
+
+    private static void editarObraTipo(String nome){
+        int op;
+        do {
+            System.out.println("Selecione o novo tipo de obra:");
+            System.out.println("1) Escultura");
+            System.out.println("2) Pintura");
+            System.out.println("3) Exposição");
+            System.out.println("0) Cancelar");
+            op = Console.lerInt(">> ");
+
+            if (op < 1 || op > 3) {
+                if (op == 0) {
+                    return;
+                } else {
+                    System.out.println("Digite um valor válido.");
+                }
+            }
+        } while (op < 1 || op > 3);
+        
+        ListaObras.editarObraTipo(nome, op);
+        System.out.println("Obra editada.");
+
+    }
+
+    private static void editarObraSetor(String nome){
+        int setorNovo = Console.lerInt("Digite o novo setor: ");
+        ListaObras.editarObraSetor(nome, setorNovo);
+        System.out.println("Obra editada.");
+    }
+
+
+
+
 }

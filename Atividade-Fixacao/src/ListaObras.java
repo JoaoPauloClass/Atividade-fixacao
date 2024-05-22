@@ -9,7 +9,7 @@ public class ListaObras {
         return listaObras;
     }
 
-    public static void cadastrarObra(Obra obra){
+    public static void adicionarObra(Obra obra){
         listaObras.add(obra);
     }
 
@@ -35,6 +35,49 @@ public class ListaObras {
         }
 
         return null;
+    }
+
+
+    public static void editarObraNome(String nome, String nomeNovo){
+            Obra obra = buscarObra(nome);
+            obra.setTitulo(nomeNovo);
+    }
+
+    public static void editarObraArtista(String nome, String artistaNovo){
+        Obra obra = buscarObra(nome);
+        obra.setArtista(artistaNovo);
+    }
+
+    public static void editarObraAno(String nome, int anoNovo){
+        Obra obra = buscarObra(nome);
+        obra.setAno(anoNovo);
+    }
+
+    public static void editarObraTipo(String nome, int tipo){
+        Obra obra = buscarObra(nome);
+
+        switch (tipo) {
+            case 1:
+                obra.setTipo("Escultura");
+                break;
+
+            case 2:
+                obra.setTipo("Pintura");
+                break;
+
+            case 3:
+                obra.setTipo("Esxposição");
+                break;
+        
+            default:
+                break;
+        }
+
+    }
+
+    public static void editarObraSetor(String nome, int setorNovo){
+        Obra obra = buscarObra(nome);
+        obra.setSetor(setorNovo);
     }
 
 
