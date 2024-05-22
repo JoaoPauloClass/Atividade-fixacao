@@ -1,5 +1,5 @@
 A Persistencia da Memoria, Salvador Dali, 1931, Pintura, 4
-amonus, Michelangelo, 1504, Escultura, 5
+David, Michelangelo, 1517, Escultura, 5
 Noite Estrelada, Vincent van Gogh, 1889, Pintura, 3
 Guernica, Pablo Picasso, 1937, Pintura, 2
 The Weather Project, Olafur Eliasson, 2003, Exposicao, 1

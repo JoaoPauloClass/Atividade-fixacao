@@ -67,6 +67,10 @@ public class Obra {
 
         String[] dadosObras = linha.split(", ");
 
+        if (dadosObras.length < 5) {
+            throw new IllegalArgumentException("String inválida");
+        }
+
         return new Obra(dadosObras[0], 
                         dadosObras[1], 
                         Integer.parseInt(dadosObras[2]),

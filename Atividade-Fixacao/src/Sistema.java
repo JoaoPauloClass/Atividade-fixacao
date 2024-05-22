@@ -7,12 +7,18 @@ public class Sistema {
 
     private static void menu() {
         int op;
+        boolean sincronizado = false;
         do {
-            try {
-                GerenciadorObras.atualizarSistema();
-            } catch (Exception e) {
-                System.out.println("ERRO! Não foi possivel salvar a obra no bando de dados: " + e.getMessage());
+            if (!sincronizado) {
+                try {
+                    GerenciadorObras.atualizarSistema();
+                    System.out.println("Sincronizado.");
+                    sincronizado = true;
+                } catch (Exception e) {
+                    System.out.println("ERRO! Não foi possivel sincronizar o banco de dados: " + e.getMessage());
+                }
             }
+            
             System.out.println("\n\nSISTEMA DO MUSEU");
             System.out.println("Selecione uma opção:");
             System.out.println("1) Cadastrar Obra");

@@ -3,30 +3,19 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+
 
 public class GerenciadorObras {
     
     private static final String ARQUIVO = "obras.txt";
 
-    public static void salvarObra(Obra obra) throws IOException {
-
-        try (FileWriter fw = new FileWriter(ARQUIVO, true);
-             BufferedWriter bw = new BufferedWriter(fw)) {
-
-            bw.write(obra.toString() + "\n");
-        }
-
-    }
+    
 
     public static void atualizarSistema() throws IOException{
         //metodo para sincronizar o sistema com os dados cadastrados no banco
         String linha;
         try (FileReader fr = new FileReader(ARQUIVO);
-                BufferedReader br = new BufferedReader(fr)) {
+            BufferedReader br = new BufferedReader(fr)) {
 
             while ((linha = br.readLine()) != null) {
 
@@ -68,6 +57,14 @@ public class GerenciadorObras {
                 }
             }
     }
+    public static void salvarObra(Obra obra) throws IOException {
 
+            try (FileWriter fw = new FileWriter(ARQUIVO, true);
+                BufferedWriter bw = new BufferedWriter(fw)) {
+
+                bw.write(obra.toString() + "\n");
+            }
+
+        }
 
 }
